@@ -5,6 +5,8 @@ namespace Hellonico\Fixtures\Entity;
 use DateTime;
 use ReflectionObject;
 use ReflectionProperty;
+use WP_CLI;
+use WP_CLI\Utils;
 
 abstract class Entity implements EntityInterface
 {
@@ -109,5 +111,13 @@ abstract class Entity implements EntityInterface
         return array_filter($array, function ($v) {
             return !is_null($v);
         });
+    }
+
+    public function runcommand($cmd)
+    {
+      $cmd .= Utils\assoc_args_to_str($this->getData());
+      $cmd .= ' --user=1';
+      WP_CLI::runcommand($cmd);
+      return true;
     }
 }
