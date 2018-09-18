@@ -4,6 +4,7 @@ namespace Hellonico\Fixtures;
 
 use Faker\Factory;
 use Hellonico\Fixtures\Provider\WordPress;
+use Hellonico\Fixtures\Provider\WooCommerce;
 use Nelmio\Alice\Loader\NativeLoader;
 use ReflectionClass;
 use WP_CLI;
@@ -54,6 +55,7 @@ class Command extends WP_CLI_Command
         $generator = Factory::create(get_locale());
         // Add provider
         $generator->addProvider(new WordPress($generator));
+        $generator->addProvider(new WooCommerce($generator));
 
         WP_CLI::line('Loading fixtures... This might take some time depending on images number and connection speed');
 
